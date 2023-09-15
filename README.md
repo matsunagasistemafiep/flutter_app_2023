@@ -1,3 +1,9 @@
-# cadastro_tasks
+# Aplicativo Flutter
 
-A new Flutter project.
+Para baixar o projeto, vá em Code -> Download Zip.
+
+![image](https://github.com/matsunagasistemafiep/flutter_app_2023/assets/83678675/32347416-d63a-4bfc-893f-446c11f16225)
+
+Ou se tiver uma conta no GitHub e o Git configurado no seu computador, faça o clone do projeto:
+
+``git clone https://github.com/matsunagasistemafiep/flutter_app_2023.git``
