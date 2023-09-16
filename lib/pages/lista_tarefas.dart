@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../models/tarefa_model.dart';
+
 class ListaTarefas extends StatefulWidget {
   const ListaTarefas({super.key});
 
@@ -15,6 +17,8 @@ class ListaTarefasState extends State<ListaTarefas> {
   TextEditingController descriptionControl = TextEditingController();
   TextEditingController dataControl = TextEditingController();
   TextEditingController horaControl = TextEditingController();
+
+  List<Tarefa> listaTarefa = [];
 
   @override
   Widget build(BuildContext context) {
@@ -75,11 +79,32 @@ class ListaTarefasState extends State<ListaTarefas> {
             ElevatedButton(
               child: const Text("Cadastrar"),
               onPressed: () {
-
+                /// Instanciar um objeto da classe Tarefa
+                Tarefa task = Tarefa(
+                  id: listaTarefa.length+1,
+                  descricao: descriptionControl.text,
+                  data: dataControl.text,
+                  hora: horaControl.text
+                );
+                setState(() {
+                  listaTarefa.add(task);
+                });
               },
             ),
             const Divider(),
-            
+            Expanded(
+              child: ListView.builder(
+                itemCount: listaTarefa.length,
+                itemBuilder: (context, index) {
+                  Tarefa task = listaTarefa[index];
+                  return ListTile(
+                    leading: const Icon(Icons.task),
+                    title: Text(task.descricao),
+                    subtitle: Text("${task.data} às ${task.hora}"),
+                  );
+                },
+              ),
+            )
           ]
         ))
     );
