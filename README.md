@@ -10,3 +10,7 @@ Ou se tiver uma conta no GitHub e o Git configurado no seu computador, faça o c
 
 ``git clone https://github.com/matsunagasistemafiep/flutter_app_2023.git``
 
+## Execução do projeto
+Executar o comando ``flutter pub get`` para instalar as dependências.
+
+Em seguida, execute ``flutter run`` com um emulador do Android aberto.
