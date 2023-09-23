@@ -55,9 +55,9 @@ class HomeState extends State<Home> {
             ]
           ),*/
           // Imagem de fundo
-          image: DecorationImage(
+          /*image: DecorationImage(
             image: AssetImage("./assets/images/fundo.jpg")
-          )
+          )*/
         ),
         /* Se estiver executando na Web (Chrome) */
         //child: Image.asset("/images/computer.png")

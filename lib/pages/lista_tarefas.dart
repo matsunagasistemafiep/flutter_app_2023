@@ -153,11 +153,17 @@ class ListaTarefasState extends State<ListaTarefas> {
                       ),
                     onLongPress: () {
                       print("Ação on Long Press");
-                      Navigator.push(
+                      /*Navigator.push(
                         context, 
                         MaterialPageRoute(
                           builder:(context) => DetalhesTarefa(task: listaTarefa[index]),
                         )
+                      );*/
+                      showModalBottomSheet(
+                        context: context, 
+                        builder: (context) {
+                          return DetalhesTarefa(task: listaTarefa[index]);
+                        },
                       );
                     },  
                     onTap: () {
