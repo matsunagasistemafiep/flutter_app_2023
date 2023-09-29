@@ -14,3 +14,33 @@ Ou se tiver uma conta no GitHub e o Git configurado no seu computador, faça o c
 Executar o comando ``flutter pub get`` para instalar as dependências.
 
 Em seguida, execute ``flutter run`` com um emulador do Android aberto.
+
+## Adicionando ícones
+Gere um arquivo .png de ícone, de preferência de tamanho 1024x1024. Salve a imagem na pasta assets/icons/app-icon.png.
+
+Executar o comando ``flutter pub add flutter_launcher_icons`` para instalar a dependência para definir o ícone do seu aplicativo.
+
+Em seguida, inclua o atributo abaixo no arquivo pubspec.yaml:
+``flutter_launcher_icons:``
+``  android: "launcher_icon"``
+``  ios: true``
+``  image_path: "asset/icons/pet.png"``
+
+Salve o arquivo. Execute o comando ``flutter pub get``
+
+No final, execute o comando ``dart run flutter_launcher_icons``
+
+### Alterando o ícone de aplicativos para Android
+
+Veja os ícones, em diferentes resoluções sendo salvos em android\app\src\main\res
+
+Em seguida, vá no arquivo android\app\src\main\AndroidManifest.xml. Procure pelo atributo android:label e android:icon. Defina respectivamente o nome do aplicativo e o ícone definido anteriormente (launcher_icon).
+
+Desinstale o aplicativo do seu emulador e em seguida, execute ``flutter run``.
+
+### Alterando o ícone de aplicativos para iOS
+Essa configuração vale apenas se estiver executando o aplicativo no XCode, para iOS.
+
+Vá em ios>Runner e abra o arquivo info.plist.
+
+Defian o nome no parâmetro CFBundleName.

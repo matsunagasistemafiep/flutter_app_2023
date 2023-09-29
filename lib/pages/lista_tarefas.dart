@@ -15,6 +15,10 @@ class ListaTarefas extends StatefulWidget {
 
 class ListaTarefasState extends State<ListaTarefas> {
 
+  // Define um ponteiro para o foco do formulário
+  FocusNode descFocusNode = FocusNode();
+  FocusNode detFocusNode = FocusNode();
+
   TextEditingController descriptionControl = TextEditingController();
   TextEditingController dataControl = TextEditingController();
   TextEditingController horaControl = TextEditingController();
@@ -22,6 +26,11 @@ class ListaTarefasState extends State<ListaTarefas> {
 
   /// Variável que representa os dados a serem exibidos
   List<Tarefa> listaTarefa = [];
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +42,7 @@ class ListaTarefasState extends State<ListaTarefas> {
           children: [
             TextFormField(
               controller: descriptionControl,
+              focusNode: descFocusNode,
               decoration: const InputDecoration(
                 labelText: "Título",
                 icon: Icon(Icons.task)
@@ -81,6 +91,8 @@ class ListaTarefasState extends State<ListaTarefas> {
             ),
             TextFormField(
               controller: detalhesControl,
+              focusNode: detFocusNode,
+              keyboardType: TextInputType.multiline,
               decoration: const InputDecoration(
                 icon: Icon(Icons.description),
                 labelText: "Detalhes da tarefa"
@@ -109,6 +121,8 @@ class ListaTarefasState extends State<ListaTarefas> {
                 );
                 setState(() {
                   listaTarefa.add(task);
+                  detFocusNode.unfocus();
+                  descFocusNode.unfocus();
                 });
               },
             ),
@@ -153,6 +167,9 @@ class ListaTarefasState extends State<ListaTarefas> {
                       ),
                     onLongPress: () {
                       print("Ação on Long Press");
+                      detFocusNode.unfocus();
+                      descFocusNode.unfocus();
+
                       /*Navigator.push(
                         context, 
                         MaterialPageRoute(
