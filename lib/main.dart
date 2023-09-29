@@ -1,9 +1,26 @@
+import 'package:cadastro_tasks/models/dog.dart';
 import 'package:flutter/material.dart';
 
 import 'home.dart';
+import 'repositories/db_repository.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MainApp());
+
+
+  DBRepository repository = DBRepository();
+  // Create a Dog and add it to the dogs table
+  var fido = const Dog(
+    id: 1,
+    name: 'Dog 1',
+    age: 10,
+  );
+
+  await repository.insertDog(fido);
+
+  print(await repository.dogs());
+
 }
 
 class MainApp extends StatelessWidget {
