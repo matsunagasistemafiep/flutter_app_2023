@@ -11,6 +11,7 @@ class DBRepository {
   }
 
   Future<Database> initDatabase() async {
+    print(await getDatabasesPath());
     return openDatabase(
       // Set the path to the database. Note: Using the `join` function from the
       // `path` package is best practice to ensure the path is correctly

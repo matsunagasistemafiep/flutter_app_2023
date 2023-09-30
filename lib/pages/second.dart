@@ -1,3 +1,4 @@
+import 'package:cadastro_tasks/modules/config/settings.dart';
 import 'package:flutter/material.dart';
 
 import 'lista_tarefas.dart';
@@ -19,10 +20,10 @@ class SecondState extends State<Second> {
       body: ListView( // Visualizador de listas
         children: [ // ListTile: cada item da lista
           ListTile(
-            leading: Icon(Icons.people_alt),
-            title: Text("Lista de usuários"),
-            subtitle: Text("Pessoas cadastradas"),
-            trailing: Icon(Icons.arrow_forward_ios),
+            leading: const Icon(Icons.people_alt),
+            title: const Text("Lista de usuários"),
+            subtitle: const Text("Pessoas cadastradas"),
+            trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
               print("Você tocou na lista");
               // Navegando para uma nova tela
@@ -35,8 +36,8 @@ class SecondState extends State<Second> {
           ),
           ListTile(
             leading: const Icon(Icons.task),
-            title: Text("Lista de tarefas"),
-            trailing: Icon(Icons.arrow_forward_ios),
+            title: const Text("Lista de tarefas"),
+            trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
               Navigator.push(context, 
                 MaterialPageRoute(
@@ -46,20 +47,24 @@ class SecondState extends State<Second> {
             }
           ),
           ListTile(
-            leading: Icon(Icons.photo),
-            title: Text("Álbum de fotos"),
-            subtitle: Text("Visualização de imagens"),
-            trailing: Icon(Icons.arrow_forward_ios),
+            leading: const Icon(Icons.photo),
+            title: const Text("Álbum de fotos"),
+            subtitle: const Text("Visualização de imagens"),
+            trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
               print("Você tocou na lista");
             }
           ),
           ListTile(
-            leading: Icon(Icons.settings),
-            title: Text("Configurações"),
-            trailing: Icon(Icons.arrow_forward_ios),
+            leading: const Icon(Icons.settings),
+            title: const Text("Configurações"),
+            trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
-              print("Você tocou na lista");
+              Navigator.push(context, 
+                MaterialPageRoute(
+                  builder: (context) => const SettingsPage()
+                )
+              );
             }
           )
         ]
