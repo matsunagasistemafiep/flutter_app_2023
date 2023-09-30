@@ -23,16 +23,16 @@ class BottomBarState extends State<BottomBar> {
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              child: Text("Menu"),
+          children: const [
+            DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
+              child: Text("Menu"),
             ),
-            ListTile(title: const Text("Item 1")),
-            ListTile(title: const Text("Item 2")),
-            ListTile(title: const Text("Item 3")),
+            ListTile(title: Text("Item 1")),
+            ListTile(title: Text("Item 2")),
+            ListTile(title: Text("Item 3")),
           ],
         )
       ),
