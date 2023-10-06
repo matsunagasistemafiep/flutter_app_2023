@@ -96,8 +96,10 @@ class _FormTask extends State<FormTask> {
           child: const Text("Cadastrar"),
           onPressed: () {
             /// Instanciar um objeto da classe Tarefa
+            var uuid = Random().nextInt(4294967296).toString();
+            //print(uuid);
             Task task = Task(
-              id: Random().nextInt(2147483647),
+              id: uuid,
               descricao: descriptionControl.text,
               data: dataControl.text,
               hora: horaControl.text,

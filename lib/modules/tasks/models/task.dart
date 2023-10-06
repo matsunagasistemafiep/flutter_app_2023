@@ -1,5 +1,5 @@
 class Task {
-  int id;
+  String id;
   String descricao;
   String data;
   String hora;
