@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../models/tarefa_model.dart';
+import '../models/task.dart';
 import '../widgets/detalhes_tarefa.dart';
 
 class ListaTarefas extends StatefulWidget {
@@ -21,7 +21,7 @@ class ListaTarefasState extends State<ListaTarefas> {
   TextEditingController detalhesControl = TextEditingController();
 
   /// Variável que representa os dados a serem exibidos
-  List<Tarefa> listaTarefa = [];
+  List<Task> listaTarefa = [];
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +100,7 @@ class ListaTarefasState extends State<ListaTarefas> {
               child: const Text("Cadastrar"),
               onPressed: () {
                 /// Instanciar um objeto da classe Tarefa
-                Tarefa task = Tarefa(
+                Task task = Task(
                   id: listaTarefa.length+1,
                   descricao: descriptionControl.text,
                   data: dataControl.text,
@@ -120,7 +120,7 @@ class ListaTarefasState extends State<ListaTarefas> {
               child: ListView.builder(
                 itemCount: listaTarefa.length,
                 itemBuilder: (context, index) {
-                  Tarefa task = listaTarefa[index];
+                  Task task = listaTarefa[index];
                   return ListTile(
                     // Operador condicional ternário
                     leading: (task.situacao==1) ? 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../tasks/pages/lista_tarefas.dart';
+import '../../tasks/screens/lista_tarefas.dart';
 import '../../users/pages/usuarios.dart';
 
 class Home extends StatefulWidget {

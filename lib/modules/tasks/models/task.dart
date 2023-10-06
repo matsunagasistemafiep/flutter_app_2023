@@ -1,4 +1,4 @@
-class Tarefa {
+class Task {
   int id;
   String descricao;
   String data;
@@ -6,7 +6,7 @@ class Tarefa {
   int situacao; // 0 - pendente, 1 - concluído
   String detalhes;
 
-  Tarefa({
+  Task({
     required this.id,
     required this.descricao,
     required this.data,

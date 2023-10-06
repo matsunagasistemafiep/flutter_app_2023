@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../models/tarefa_model.dart';
+import '../models/task.dart';
 
 class DetalhesTarefa extends StatelessWidget {
 
-  final Tarefa task;
+  final Task task;
 
   const DetalhesTarefa({
     super.key,
