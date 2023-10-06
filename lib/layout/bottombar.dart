@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../pages/calc.dart';
-import '../pages/formulario.dart';
-import '../pages/second.dart';
+
+import '../modules/calc/pages/calc.dart';
+import '../modules/forms/pages/formulario.dart';
+import '../modules/home/pages/home.dart';
 
 class BottomBar extends StatefulWidget {
   @override
@@ -46,7 +47,7 @@ class BottomBarState extends State<BottomBar> {
         ]
       ),
       body: [
-        Second(),
+        Home(),
         Calc(),
         Formulario()
       ][abaSelecionada]

@@ -1,23 +1,35 @@
 import 'package:flutter/material.dart';
 
-import 'lista_tarefas.dart';
-import 'usuarios.dart';
+import '../../tasks/pages/lista_tarefas.dart';
+import '../../users/pages/usuarios.dart';
 
-class Second extends StatefulWidget {
-  const Second({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return SecondState();
+    return HomeState();
   }
 }
 
-class SecondState extends State<Second> {
+class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView( // Visualizador de listas
         children: [ // ListTile: cada item da lista
+          ListTile(
+            leading: const Icon(Icons.task),
+            title: Text("Lista de tarefas"),
+            trailing: Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              Navigator.push(context, 
+                MaterialPageRoute(
+                  builder: (context) => ListaTarefas()
+                )
+              );
+            }
+          ),
           ListTile(
             leading: Icon(Icons.people_alt),
             title: Text("Lista de usuários"),
@@ -29,18 +41,6 @@ class SecondState extends State<Second> {
               Navigator.push(context, 
                 MaterialPageRoute(
                   builder: (context) => Usuarios()
-                )
-              );
-            }
-          ),
-          ListTile(
-            leading: const Icon(Icons.task),
-            title: Text("Lista de tarefas"),
-            trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              Navigator.push(context, 
-                MaterialPageRoute(
-                  builder: (context) => ListaTarefas()
                 )
               );
             }

@@ -14,3 +14,5 @@ Ou se tiver uma conta no GitHub e o Git configurado no seu computador, faça o c
 Executar o comando ``flutter pub get`` para instalar as dependências.
 
 Em seguida, execute ``flutter run`` com um emulador do Android aberto.
+
+Se for executar no Google Chrome, ``flutter run -d chrome``.

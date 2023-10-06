@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../pages/calc.dart';
-import '../pages/second.dart';
+import '../modules/calc/pages/calc.dart';
+import '../modules/home/pages/home.dart';
 
 class TopBar extends StatelessWidget {
   @override
@@ -21,7 +21,7 @@ class TopBar extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            Second(),
+            Home(),
             Calc(),
             Container(child: Text("Em Construção"))
           ],

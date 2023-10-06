@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../models/tarefa_model.dart';
-import 'detalhes_tarefa.dart';
+import '../widgets/detalhes_tarefa.dart';
 
 class ListaTarefas extends StatefulWidget {
   const ListaTarefas({super.key});

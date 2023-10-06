@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'layout/bottombar.dart';
+import '../layout/bottombar.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class Splash extends StatefulWidget {
+  const Splash({super.key});
 
   @override
-  State<Home> createState() => HomeState();
+  State<Splash> createState() => SplashState();
 }
 
-class HomeState extends State<Home> {
+class SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();

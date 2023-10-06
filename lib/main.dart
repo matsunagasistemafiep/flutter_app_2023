@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'home.dart';
+import 'splash/splash.dart';
 
 void main() {
   runApp(const MainApp());
@@ -20,7 +20,7 @@ class MainApp extends StatelessWidget {
         useMaterial3: false,
       ),
       home: const Scaffold(
-        body: Home()
+        body: Splash()
       ),
     );
   }
