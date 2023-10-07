@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../models/task.dart';
+import '../services/task_service.dart';
 
 class FormTask extends StatefulWidget {
 
@@ -18,6 +19,10 @@ class FormTask extends StatefulWidget {
 }
 
 class _FormTask extends State<FormTask> {
+
+  TaskService service = TaskService();
+
+
   TextEditingController descriptionControl = TextEditingController();
   TextEditingController dataControl = TextEditingController();
   TextEditingController horaControl = TextEditingController();
@@ -107,6 +112,7 @@ class _FormTask extends State<FormTask> {
             );
             setState(() {
               //listaTarefa.add(task);
+              service.store(task);
             });
           },
         )

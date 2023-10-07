@@ -15,4 +15,16 @@ class Task {
     this.situacao=0
   });
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'descricao': descricao,
+      'data': data,
+      'hora': hora,
+      'detalhes': detalhes,
+      'situacao': situacao
+    };
+  }
+
+
 }
