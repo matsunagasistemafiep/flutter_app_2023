@@ -9,11 +9,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   flutter_launcher_icons: ^0.13.1
-  intl: ^0.18.1
+  intl: ^0.18.0
   lottie: ^2.6.0
   path: ^1.8.3
   sqflite: ^2.3.0
+  vibration: ^1.8.2
 
 dev_dependencies:
   flutter_test:

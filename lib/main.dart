@@ -1,6 +1,6 @@
 import 'package:cadastro_tasks/models/dog.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'home.dart';
 import 'repositories/db_repository.dart';
 
@@ -36,6 +36,12 @@ class MainApp extends StatelessWidget {
         //colorSchemeSeed: const Color(0xff6750a4),
         useMaterial3: false,
       ),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate
+      ],
+      supportedLocales: const [
+        Locale('pt')
+      ],
       home: const Scaffold(
         body: Home()
       ),

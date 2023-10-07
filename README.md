@@ -21,10 +21,15 @@ Gere um arquivo .png de ícone, de preferência de tamanho 1024x1024. Salve a im
 Executar o comando ``flutter pub add flutter_launcher_icons`` para instalar a dependência para definir o ícone do seu aplicativo.
 
 Em seguida, inclua o atributo abaixo no arquivo pubspec.yaml:
+
 ``flutter_launcher_icons:``
+
 ``  android: "launcher_icon"``
+
 ``  ios: true``
+
 ``  image_path: "asset/icons/pet.png"``
+
 
 Salve o arquivo. Execute o comando ``flutter pub get``
 

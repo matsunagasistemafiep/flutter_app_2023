@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import '../pages/calc.dart';
-import '../pages/formulario.dart';
-import '../pages/second.dart';
+import 'package:vibration/vibration.dart';
 
-class BottomBar extends StatefulWidget {
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({super.key});
+
   @override
   State<StatefulWidget> createState() {
-    return BottomBarState();
+    return SettingsPageState();
   }
 }
 
-class BottomBarState extends State<BottomBar> {
+class SettingsPageState extends State<SettingsPage> {
   int abaSelecionada=0;
 
   @override
@@ -19,22 +19,6 @@ class BottomBarState extends State<BottomBar> {
       appBar: AppBar(
         title: const Text("Bottom Bar"),
         centerTitle: true,
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: const [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text("Menu"),
-            ),
-            ListTile(title: Text("Item 1")),
-            ListTile(title: Text("Item 2")),
-            ListTile(title: Text("Item 3")),
-          ],
-        )
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: abaSelecionada,
@@ -60,11 +44,31 @@ class BottomBarState extends State<BottomBar> {
           )
         ]
       ),
-      body: [
-        Second(),
-        Calc(),
-        Formulario()
-      ][abaSelecionada]
+      body: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              OutlinedButton(
+                onPressed: () {
+                  Vibration.vibrate(
+                    pattern: [500, 1000, 500, 2000, 500, 3000, 500, 500],
+                    intensities: [0, 120, 0, 255, 0, 64, 0, 255]
+                  );
+                },
+                child: const Text("Vibrar")
+              ),
+              OutlinedButton(
+                onPressed: () {
+                  Vibration.cancel();
+                },
+                child: const Text("Parar", style: TextStyle(color: Colors.redAccent),)
+              )
+            ],
+          )
+        )
+      )
     );
   }
 
