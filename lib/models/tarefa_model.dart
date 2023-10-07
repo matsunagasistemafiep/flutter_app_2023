@@ -15,4 +15,20 @@ class Tarefa {
     this.situacao=0
   });
 
+  Map<String ,dynamic> toMap() {
+    return {
+      'id': id,
+      'descricao': descricao,
+      'data': data,
+      'hora': hora,
+      'detalhes': detalhes
+    };
+  }
+
+  @override
+  String toString() {
+    return 'Task{$id, $descricao, $data, $hora, $detalhes}';
+  }
+
+
 }

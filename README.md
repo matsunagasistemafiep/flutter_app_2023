@@ -44,3 +44,12 @@ Essa configuração vale apenas se estiver executando o aplicativo no XCode, par
 Vá em ios>Runner e abra o arquivo info.plist.
 
 Defian o nome no parâmetro CFBundleName.
+
+## Persistência de dados
+Executar os comandos 
+
+``flutter pub add path``
+``flutter pub add sqflite`` 
+
+para instalar a dependência para utilizar o SQLite.
+
