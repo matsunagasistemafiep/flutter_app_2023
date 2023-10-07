@@ -6,6 +6,7 @@ import '../services/task_service.dart';
 import 'detalhes_tarefa.dart';
 
 class ListTask extends StatefulWidget {
+
   const ListTask({super.key});
 
   @override
@@ -37,9 +38,9 @@ class _ListTask extends State<ListTask> {
           return const CircularProgressIndicator();
         }
         // Quando retornar os dados
-        if (snapshot.connectionState==ConnectionState.done 
-            && snapshot.hasData) {
+        if (snapshot.connectionState==ConnectionState.done && snapshot.hasData) {
           List<Task> listaTarefa = snapshot.data!;
+          print("Tarefas");
           print(listaTarefa);
           return Expanded(
             /// listaTarefa - a lista em si
@@ -102,8 +103,11 @@ class _ListTask extends State<ListTask> {
             ),
           );
         }
-
-        return Container();
+        // Deu algum erro
+        if (snapshot.hasError) {
+          return Container(child: Text("Erro ao carregar dados"));
+        }
+        return Container(child: Text("Dados"));
       }
     );
 

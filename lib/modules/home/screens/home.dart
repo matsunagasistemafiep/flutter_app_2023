@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../tasks/screens/lista_tarefas.dart';
-import '../../users/pages/usuarios.dart';
+import '../../users/screens/usuarios.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

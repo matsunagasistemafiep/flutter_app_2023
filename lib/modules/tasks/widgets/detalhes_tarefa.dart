@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/task.dart';
 
 class DetalhesTarefa extends StatelessWidget {
-
+  
   final Task task;
 
   const DetalhesTarefa({

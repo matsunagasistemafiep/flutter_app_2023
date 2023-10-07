@@ -1,6 +1,7 @@
 
 import 'dart:math';
 
+import 'package:cadastro_tasks/modules/tasks/styles/styles_task.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -9,7 +10,9 @@ import '../services/task_service.dart';
 
 class FormTask extends StatefulWidget {
 
-  const FormTask({super.key});
+  final Function update;
+
+  const FormTask({super.key, required this.update});
   
   @override
   State<FormTask> createState() {
@@ -19,10 +22,16 @@ class FormTask extends StatefulWidget {
 }
 
 class _FormTask extends State<FormTask> {
-
+  /* Instância do service para o módulo - requisição de dados e ações */
   TaskService service = TaskService();
 
+  /* Define ponteiros para os focos de cada formulário 
+  Será útil para desfazer o foco quando necessário
+  */
+  FocusNode descFocusNode = FocusNode();
+  FocusNode detFocusNode = FocusNode();
 
+  /* Controllers de cada item de formulário */
   TextEditingController descriptionControl = TextEditingController();
   TextEditingController dataControl = TextEditingController();
   TextEditingController horaControl = TextEditingController();
@@ -34,6 +43,7 @@ class _FormTask extends State<FormTask> {
       children: [
         TextFormField(
           controller: descriptionControl,
+          focusNode: descFocusNode,
           decoration: const InputDecoration(
             labelText: "Título",
             icon: Icon(Icons.task)
@@ -82,6 +92,7 @@ class _FormTask extends State<FormTask> {
         ),
         TextFormField(
           controller: detalhesControl,
+          focusNode: detFocusNode,
           decoration: const InputDecoration(
             icon: Icon(Icons.description),
             labelText: "Detalhes da tarefa"
@@ -91,13 +102,7 @@ class _FormTask extends State<FormTask> {
         const SizedBox(height: 10),
         /// Botão responsável por cadastrar uma nova tarefa
         ElevatedButton(
-          style: ButtonStyle(
-            // MediaQuery.of(context).size.width é a largura da tela do celular
-            // *0.75 indica que é 75% da largura
-            fixedSize: MaterialStatePropertyAll(Size(MediaQuery.of(context).size.width*0.75, 50)),
-            foregroundColor: const MaterialStatePropertyAll(Colors.white),
-            backgroundColor: const MaterialStatePropertyAll(Colors.greenAccent)
-          ),
+          style: StylesTask.buttonStyle(MediaQuery.of(context).size.width*0.75),
           child: const Text("Cadastrar"),
           onPressed: () {
             /// Instanciar um objeto da classe Tarefa
@@ -112,7 +117,9 @@ class _FormTask extends State<FormTask> {
             );
             setState(() {
               //listaTarefa.add(task);
-              service.store(task);
+              service.store(task).then((value) => {
+                widget.update()
+              });
             });
           },
         )

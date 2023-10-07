@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../modules/calc/pages/calc.dart';
-import '../modules/home/pages/home.dart';
+import '../modules/calc/screens/calc.dart';
+import '../modules/home/screens/home.dart';
 
 class TopBar extends StatelessWidget {
   @override

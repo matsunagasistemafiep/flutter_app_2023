@@ -8,7 +8,8 @@ class MockTaskRepository extends AbstractTaskRepository {
   @override
   Future<List<Task>> getAll() async {
     return [
-      Task(id: "1", descricao: "descricao", data: "data", hora: "hora", detalhes: "detalhes")
+      Task(id: "1", descricao: "descricao 1", data: "07/10/2023", hora: "8:30", detalhes: "detalhes"),
+      Task(id: "2", descricao: "descricao 2", data: "07/10/2023", hora: "8:30", detalhes: "detalhes")
     ] as Future<List<Task>>;
   }
 

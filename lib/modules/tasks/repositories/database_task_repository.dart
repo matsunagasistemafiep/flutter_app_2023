@@ -4,19 +4,27 @@ import 'package:sqflite/sqflite.dart';
 
 import 'abstract_task_repository.dart';
 
+/// Armazena os dados em um banco de dados SQLite
+/// Documentação oficial: https://docs.flutter.dev/cookbook/persistence/sqlite
 class DatabaseTaskRepository extends AbstractTaskRepository {
   
   late Future<Database> database;
   final String tableName = "tasks";
 
   DatabaseTaskRepository() {
+    
     // Instanciar o objeto da classe
     database = init();
   }
 
+  /// Remove o banco de dados
+  Future<void> deleteDatabase(String path) => databaseFactory.deleteDatabase(path);
+
+
   Future<Database> init() async {
     // Cria o banco de dados e configura a tabela
-    print(await getDatabasesPath());
+    // print(await getDatabasesPath());
+    // deleteDatabase(join(await getDatabasesPath(), 'task_database.db'));
     return openDatabase(
       // Diretório do banco de dados
       join(await getDatabasesPath(), 'task_database.db'),
@@ -25,7 +33,8 @@ class DatabaseTaskRepository extends AbstractTaskRepository {
         return db.execute(
           "CREATE TABLE $tableName(id TEXT PRIMARY KEY, descricao TEXT, data TEXT, hora TEXT, detalhes TEXT, situacao INTEGER)"
         );
-      }
+      },
+      version: 1
     );
   }
 
@@ -35,9 +44,9 @@ class DatabaseTaskRepository extends AbstractTaskRepository {
     // Referenciar o objeto
     final db = await database;
     List<Map<String, dynamic>> maps = await db.query(tableName);
-
+    print(maps);
     // Usar o gerador de lista
-    return List.generate(
+    List<Task> lista = List.generate(
       maps.length, 
       (index) {
         return Task(
@@ -50,6 +59,8 @@ class DatabaseTaskRepository extends AbstractTaskRepository {
         );
       }
     );
+    print(lista);
+    return lista;
 
   }
 

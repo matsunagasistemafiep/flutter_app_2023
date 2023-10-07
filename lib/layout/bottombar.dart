@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../modules/calc/pages/calc.dart';
-import '../modules/forms/pages/formulario.dart';
-import '../modules/home/pages/home.dart';
+import '../modules/calc/screens/calc.dart';
+import '../modules/forms/screens/formulario.dart';
+import '../modules/home/screens/home.dart';
 
 class BottomBar extends StatefulWidget {
   @override

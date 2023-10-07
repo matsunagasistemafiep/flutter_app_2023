@@ -12,7 +12,10 @@ class ListaTarefas extends StatefulWidget {
 }
 
 class ListaTarefasState extends State<ListaTarefas> {
-
+  refresh() {
+    print("Atualizando a tela");
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +23,16 @@ class ListaTarefasState extends State<ListaTarefas> {
       appBar: AppBar(title: const Text("Minhas tarefas")),
       body: Container(
         padding: const EdgeInsets.all(30),
-        child: const Column(
+        child: Column(
           children: [
-            FormTask(),
-            Divider(), // Linha horizontal
-            ListTask()
+            FormTask(update: refresh),
+            const Divider(), // Linha horizontal
+            const ListTask()
           ]
         ))
     );
   }
+
+  
+
 }
