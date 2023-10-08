@@ -7,4 +7,8 @@ abstract class AbstractTaskRepository {
 
   Future<void> store(Task task);
 
+  Future<void> update(String id, Task task);
+
+  Future<void> delete(String id);
+
 }

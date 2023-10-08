@@ -74,4 +74,31 @@ class DatabaseTaskRepository extends AbstractTaskRepository {
     );
   }
   
+  @override
+  Future<void> delete(String id) async {
+    final db = await database;
+    await db.delete(
+      tableName,
+      where: 'id = ?',
+      whereArgs: [id], // Prevenir SQL Injection
+    );
+
+  }
+  
+  @override
+  Future<void> update(String id, Task task) async {
+    final db = await database;
+
+    // Update the given Dog.
+    await db.update(
+      tableName,
+      task.toMap(),
+      // Ensure that the Dog has a matching id.
+      where: 'id = ?',
+      // Pass the Dog's id as a whereArg to prevent SQL injection.
+      whereArgs: [task.id],
+    );
+  }
+
+  
 }
