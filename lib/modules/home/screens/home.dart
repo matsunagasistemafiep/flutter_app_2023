@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../tasks/screens/lista_tarefas.dart';
+import '../../tasks/screens/main_task.dart';
 import '../../users/screens/usuarios.dart';
 
 class Home extends StatefulWidget {
@@ -25,7 +25,7 @@ class HomeState extends State<Home> {
             onTap: () {
               Navigator.push(context, 
                 MaterialPageRoute(
-                  builder: (context) => ListaTarefas()
+                  builder: (context) => MainTask()
                 )
               );
             }
