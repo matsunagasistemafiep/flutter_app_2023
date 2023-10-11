@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/task.dart';
+import '../services/task_service.dart';
 import 'detalhes_tarefa.dart';
 
 class ListTask extends StatefulWidget {
@@ -18,7 +19,7 @@ class ListTask extends StatefulWidget {
 
 class _ListTask extends State<ListTask> {
 
-  
+  TaskService service = TaskService();
 
   @override
   void initState() {
@@ -57,6 +58,7 @@ class _ListTask extends State<ListTask> {
                 onPressed:() {
                   setState(() {
                     listaTarefa[index].situacao = 1;
+                    service.update(listaTarefa[index]);
                   });
                 },
               ) :
@@ -65,6 +67,7 @@ class _ListTask extends State<ListTask> {
                 onPressed:() {
                   setState(() {
                     listaTarefa[index].situacao = 0;
+                    service.update(listaTarefa[index]);
                   });
                 },
               ),
