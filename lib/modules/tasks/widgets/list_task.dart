@@ -39,56 +39,70 @@ class _ListTask extends State<ListTask> {
         itemCount: listaTarefa.length,
         itemBuilder: (context, index) {
           Task task = listaTarefa[index];
-          return ListTile(
-            // Operador condicional ternário
-            leading: (task.situacao==1) ? 
-              const Icon(Icons.check_circle, color: Color.fromARGB(255, 76, 249, 82))
-              : const Icon(Icons.warning, color: Colors.amber),
-            title: Text(
-              task.descricao,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.blue
-              )
-            ),
-            subtitle: Text("${task.data} às ${task.hora}"),
-            trailing: (task.situacao==0) ? 
-              IconButton(
-                icon: const Icon(Icons.check, color: Colors.blueAccent),
-                onPressed:() {
-                  setState(() {
-                    listaTarefa[index].situacao = 1;
-                    service.update(listaTarefa[index]);
-                  });
-                },
-              ) :
-              IconButton(
-                icon: const Icon(Icons.undo_rounded, color: Colors.redAccent),
-                onPressed:() {
-                  setState(() {
-                    listaTarefa[index].situacao = 0;
-                    service.update(listaTarefa[index]);
-                  });
-                },
-              ),
-            onLongPress: () {
-              print("Ação on Long Press");
-              /*Navigator.push(
-                context, 
-                MaterialPageRoute(
-                  builder:(context) => DetalhesTarefa(task: listaTarefa[index]),
-                )
-              );*/
-              showModalBottomSheet(
-                context: context, 
-                builder: (context) {
-                  return DetalhesTarefa(task: listaTarefa[index]);
-                },
-              );
-            },  
-            onTap: () {
-              print("Ação Tap");
+          return Dismissible(
+            key: Key(task.id),
+            onDismissed:(direction) {
+              // Remove a task do banco de dados
+              service.delete(task.id);
+              // Mostra uma mensagem de notificação.
+              ScaffoldMessenger.of(context)
+                .showSnackBar(
+                  const SnackBar(content: Text("Task removido com sucesso!"))
+                );
             },
+            background: Container(color: Colors.redAccent),
+            child: 
+              ListTile(
+                // Operador condicional ternário
+                leading: (task.situacao==1) ? 
+                  const Icon(Icons.check_circle, color: Color.fromARGB(255, 76, 249, 82))
+                  : const Icon(Icons.warning, color: Colors.amber),
+                title: Text(
+                  task.descricao,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue
+                  )
+                ),
+                subtitle: Text("${task.data} às ${task.hora}"),
+                trailing: (task.situacao==0) ? 
+                  IconButton(
+                    icon: const Icon(Icons.check, color: Colors.blueAccent),
+                    onPressed:() {
+                      setState(() {
+                        listaTarefa[index].situacao = 1;
+                        service.update(listaTarefa[index]);
+                      });
+                    },
+                  ) :
+                  IconButton(
+                    icon: const Icon(Icons.undo_rounded, color: Colors.redAccent),
+                    onPressed:() {
+                      setState(() {
+                        listaTarefa[index].situacao = 0;
+                        service.update(listaTarefa[index]);
+                      });
+                    },
+                  ),
+                onLongPress: () {
+                  print("Ação on Long Press");
+                  /*Navigator.push(
+                    context, 
+                    MaterialPageRoute(
+                      builder:(context) => DetalhesTarefa(task: listaTarefa[index]),
+                    )
+                  );*/
+                  showModalBottomSheet(
+                    context: context, 
+                    builder: (context) {
+                      return DetalhesTarefa(task: listaTarefa[index]);
+                    },
+                  );
+                },  
+                onTap: () {
+                  print("Ação Tap");
+                },
+              )
           );
         },
       ),
