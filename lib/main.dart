@@ -1,7 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'splash/splash.dart';
 
 void main() {
@@ -23,6 +21,12 @@ class MainApp extends StatelessWidget {
         //colorSchemeSeed: const Color(0xff6750a4),
         useMaterial3: false,
       ),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate
+      ],
+      supportedLocales: const [
+        Locale('pt')
+      ],
       home: const Scaffold(
         body: Splash()
       ),
