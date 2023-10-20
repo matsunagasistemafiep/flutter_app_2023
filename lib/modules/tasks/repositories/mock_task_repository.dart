@@ -22,6 +22,7 @@ class MockTaskRepository extends AbstractTaskRepository {
   @override
   Future<void> store(Task task) async {
     print("Armazenando dados da task " + task.toString());
+    mockList.add(task);
   }
   
   @override

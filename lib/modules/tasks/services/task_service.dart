@@ -23,4 +23,12 @@ class TaskService {
     return repository.getAll();
   }
 
+  Future<void> update(Task task) async {
+    repository.update(task.id, task);
+  }
+
+  Future<void> delete(String id) async {
+    repository.delete(id);
+  }
+
 }

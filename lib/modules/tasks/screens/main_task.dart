@@ -28,11 +28,12 @@ class _MainTask extends State<MainTask> {
     return Scaffold(
       appBar: AppBar(title: const Text("Minhas tarefas")),
       body: FutureBuilder<List<Task>>(
-        future: service.getAll(),
+        future: service.getAll(), // Requisição assíncrona
+        // snapshot: estado atual da requisição
         builder: (context, snapshot) {
           // Ainda está esperando pelo retorno
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.connectionState==ConnectionState.done && snapshot.hasData) {
             List<Task> lista = snapshot.data!;

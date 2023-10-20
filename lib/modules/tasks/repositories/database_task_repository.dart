@@ -64,6 +64,7 @@ class DatabaseTaskRepository extends AbstractTaskRepository {
 
   }
 
+  /// Armazena um registro de Task na tabela do banco de dados
   @override
   Future<void> store(Task task) async {
     // Referenciar o objeto
