@@ -17,9 +17,19 @@ class _MainTask extends State<MainTask> {
 
   TaskService service = TaskService();
 
+  bool mostrarForms = true;
+
   refresh() {
     print("Atualizando a tela");
     setState(() {});
+  }
+
+  esconder() {
+    if (mostrarForms) {
+      setState(() {
+        mostrarForms = false;
+      });
+    }
   }
 
   @override
@@ -41,9 +51,12 @@ class _MainTask extends State<MainTask> {
               padding: const EdgeInsets.all(30),
               child: Column(
                 children: [
-                  FormTask(update: refresh),
+                  Visibility(
+                    visible: mostrarForms,
+                    child: FormTask(update: refresh)
+                  ),
                   const Divider(), // Linha horizontal
-                  ListTask(tasks: lista)
+                  ListTask(tasks: lista, esconderForms: esconder)
                 ]
               )
             );

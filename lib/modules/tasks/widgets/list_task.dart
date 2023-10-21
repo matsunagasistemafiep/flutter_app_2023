@@ -8,8 +8,13 @@ import 'detalhes_tarefa.dart';
 class ListTask extends StatefulWidget {
 
   final List<Task> tasks;
+  final Function esconderForms;
 
-  const ListTask({super.key, required this.tasks});
+  const ListTask({
+    super.key, 
+    required this.tasks,
+    required this.esconderForms
+  });
 
   @override
   State<ListTask> createState() {
@@ -20,10 +25,26 @@ class ListTask extends StatefulWidget {
 class _ListTask extends State<ListTask> {
 
   TaskService service = TaskService();
+  /// Cria um controller para scroll da tela
+  final ScrollController _scroll = ScrollController();
 
   @override
   void initState() {
+    _scroll.addListener(_scrollListener);
     super.initState();
+  }
+
+  /// Capturando eventos quando o scroll é ativado
+  _scrollListener() {
+    if (_scroll.offset>0.0) {
+      print("Scroll ${_scroll.offset}");
+      // Faz uma execução de uma função remota
+      widget.esconderForms();
+    }
+    else {
+
+    }
+
   }
 
   @override
@@ -36,6 +57,7 @@ class _ListTask extends State<ListTask> {
       /// index - o índice da lista
       /// listaTarefa[index] - item atual
       child: ListView.builder(
+        controller: _scroll,
         itemCount: listaTarefa.length,
         itemBuilder: (context, index) {
           Task task = listaTarefa[index];
