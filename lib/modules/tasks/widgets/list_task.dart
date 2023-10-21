@@ -9,11 +9,13 @@ class ListTask extends StatefulWidget {
 
   final List<Task> tasks;
   final Function esconderForms;
+  final Function mostrarForms;
 
   const ListTask({
     super.key, 
     required this.tasks,
-    required this.esconderForms
+    required this.esconderForms,
+    required this.mostrarForms
   });
 
   @override
@@ -42,7 +44,9 @@ class _ListTask extends State<ListTask> {
       widget.esconderForms();
     }
     else {
-
+      if (_scroll.offset==0.0) {
+          widget.mostrarForms();
+        }
     }
 
   }

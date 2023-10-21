@@ -32,6 +32,14 @@ class _MainTask extends State<MainTask> {
     }
   }
 
+  mostrar() {
+    if (!mostrarForms) {
+      setState(() {
+        mostrarForms = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
   
@@ -56,7 +64,11 @@ class _MainTask extends State<MainTask> {
                     child: FormTask(update: refresh)
                   ),
                   const Divider(), // Linha horizontal
-                  ListTask(tasks: lista, esconderForms: esconder)
+                  ListTask(
+                    tasks: lista, 
+                    esconderForms: esconder,
+                    mostrarForms: mostrar
+                  )
                 ]
               )
             );
