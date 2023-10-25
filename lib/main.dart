@@ -4,7 +4,6 @@ import 'splash/splash.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
   runApp(const MainApp());
 }
 
@@ -19,13 +18,15 @@ class MainApp extends StatelessWidget {
       /// o layout anterior
       theme: ThemeData(
         //colorSchemeSeed: const Color(0xff6750a4),
-        useMaterial3: false,
+        useMaterial3: true,
       ),
       localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('pt')
+        Locale('pt', 'BR')
       ],
       home: const Scaffold(
         body: Splash()

@@ -16,3 +16,9 @@ Executar o comando ``flutter pub get`` para instalar as dependências.
 Em seguida, execute ``flutter run`` com um emulador do Android aberto.
 
 Se for executar no Google Chrome, ``flutter run -d chrome``.
+
+# Recursos adiconais
+
+## Links
+
+`flutter pub add url_launcher` 

@@ -1,7 +1,8 @@
+import 'package:cadastro_tasks/modules/home/widgets/my_list.dart';
 import 'package:flutter/material.dart';
 
-import '../../tasks/screens/main_task.dart';
-import '../../users/screens/usuarios.dart';
+import '../../calc/screens/calc.dart';
+import '../../forms/screens/formulario.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -13,57 +14,42 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
+
+  int abaSelecionada=0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView( // Visualizador de listas
-        children: [ // ListTile: cada item da lista
-          ListTile(
-            leading: const Icon(Icons.task),
-            title: Text("Lista de tarefas"),
-            trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              Navigator.push(context, 
-                MaterialPageRoute(
-                  builder: (context) => MainTask()
-                )
-              );
-            }
+      body: [
+        const MyList(),
+        const Calc(),
+        const Formulario()
+      ][abaSelecionada], 
+
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: abaSelecionada,
+        // Evento ativado quando uma aba for selecionada
+        // index representa o índice da aba (0 a n-1)
+        onDestinationSelected: (index) {
+          setState(() {
+            abaSelecionada = index;
+          });
+        },
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.home),
+            label: "Início",
           ),
-          ListTile(
-            leading: Icon(Icons.people_alt),
-            title: Text("Lista de usuários"),
-            subtitle: Text("Pessoas cadastradas"),
-            trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              print("Você tocou na lista");
-              // Navegando para uma nova tela
-              Navigator.push(context, 
-                MaterialPageRoute(
-                  builder: (context) => Usuarios()
-                )
-              );
-            }
+          NavigationDestination(
+            icon: Icon(Icons.calculate_sharp),
+            label: "Calculadora"
           ),
-          ListTile(
-            leading: Icon(Icons.photo),
-            title: Text("Álbum de fotos"),
-            subtitle: Text("Visualização de imagens"),
-            trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              print("Você tocou na lista");
-            }
-          ),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text("Configurações"),
-            trailing: Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              print("Você tocou na lista");
-            }
+          NavigationDestination(
+            icon: Icon(Icons.person),
+            label: "Perfil"
           )
         ]
-      )
+      ),
     );
   }
 
