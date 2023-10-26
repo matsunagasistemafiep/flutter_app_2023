@@ -22,36 +22,54 @@ class _GeolocationPageState extends State<GeolocationPage> {
   late StreamSubscription<Position> positionStream;
   String status = 'Aguardando GPS';
   late Position positionLocation;
+  late LocationSettings locationSettings;
 
   @override
   void initState() {
-    obterLocalizacaoAtual();
+    _determinePosition().then((value) {
+      positionLocation = value;
+      print(positionLocation);
+    });
     super.initState();
   }
 
-  /// Método para obter a localização atual, considerando as permissões
-  obterLocalizacaoAtual() async {
-    PermissionStatus permission = await Permission.location.request();
-    if (permission.isDenied) {
-      print("Parece que você não permitiu o uso do GPS, abra as configurações do aplicativo e libere a permissão");
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the 
+      // App to enable the location services.
+      return Future.error('Location services are disabled.');
     }
-    else {
-      bool gpsIsEnabled = await Geolocator.isLocationServiceEnabled();
-      if (!gpsIsEnabled) {
-        print('Seu GPS está desligado, para obter a localicação ative-o.');
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale 
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
       }
-      positionStream = Geolocator.getPositionStream().listen((Position position) async {
-        if(positionLocation == null){
-          positionLocation = position;
-          setState(() {
-            status = 'Localização obtida';
-            print('Latitude: ${positionLocation.latitude.toString()}');
-            print('Longitude: ${positionLocation.longitude.toString()}');
-          });
-        }
-      });
     }
+    
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately. 
+      return Future.error(
+        'Location permissions are permanently denied, we cannot request permissions.');
+    } 
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +81,10 @@ class _GeolocationPageState extends State<GeolocationPage> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.gps_fixed),
         onPressed: () {
-          obterLocalizacaoAtual();
+          _determinePosition().then((value) {
+            positionLocation = value;
+            print(positionLocation);
+          });
         },
       ),
     );
