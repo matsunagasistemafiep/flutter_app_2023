@@ -28,3 +28,5 @@ Se for executar no Google Chrome, ``flutter run -d chrome``.
 `flutter pub add permission_handler`
 
 `flutter pub add geolocator`
+
+`flutter pub add geocoding`

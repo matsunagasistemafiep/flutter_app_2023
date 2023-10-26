@@ -1,5 +1,5 @@
-import 'package:cadastro_tasks/modules/tasks/services/task_service.dart';
-import 'package:cadastro_tasks/modules/tasks/widgets/list_task.dart';
+import 'package:my_flutter_app/modules/tasks/services/task_service.dart';
+import 'package:my_flutter_app/modules/tasks/widgets/list_task.dart';
 import 'package:flutter/material.dart';
 import '../models/task.dart';
 import '../widgets/form_task.dart';

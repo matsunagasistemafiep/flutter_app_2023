@@ -1,4 +1,4 @@
-import 'package:cadastro_tasks/modules/tasks/models/task.dart';
+import 'package:my_flutter_app/modules/tasks/models/task.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

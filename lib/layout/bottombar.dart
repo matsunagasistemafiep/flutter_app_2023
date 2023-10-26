@@ -1,6 +1,6 @@
-import 'package:cadastro_tasks/modules/resources/geolocation/geolocation_page.dart';
-import 'package:cadastro_tasks/modules/resources/image/image_page.dart';
-import 'package:cadastro_tasks/modules/resources/links/links_page.dart';
+import 'package:my_flutter_app/modules/resources/geolocation/geolocation_page.dart';
+import 'package:my_flutter_app/modules/resources/image/image_page.dart';
+import 'package:my_flutter_app/modules/resources/links/links_page.dart';
 import 'package:flutter/material.dart';
 import '../modules/home/screens/home.dart';
 

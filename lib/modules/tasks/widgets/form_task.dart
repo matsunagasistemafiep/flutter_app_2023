@@ -1,7 +1,7 @@
 
 import 'dart:math';
 
-import 'package:cadastro_tasks/modules/tasks/styles/styles_task.dart';
+import 'package:my_flutter_app/modules/tasks/styles/styles_task.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
