@@ -17,8 +17,8 @@ class _LinksPageState extends State<LinksPage> {
 
   Future<void> _abrirSite(String url) async {
     Uri myURL = Uri.parse("https://$url");
-    if (!await launchUrl(myURL)) {
-      throw Exception('Não foi possível abrir o link $myURL');
+    if (!await canLaunchUrl(myURL)) {
+      launchUrl(myURL);
     }
   }
 

@@ -19,6 +19,12 @@ Se for executar no Google Chrome, ``flutter run -d chrome``.
 
 # Recursos adiconais
 
-## Links
+## URLs
 
 `flutter pub add url_launcher` 
+
+## Geolocalização
+
+`flutter pub add permission_handler`
+
+`flutter pub add geolocator`
