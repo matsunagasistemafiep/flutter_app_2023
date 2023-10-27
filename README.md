@@ -30,3 +30,7 @@ Se for executar no Google Chrome, ``flutter run -d chrome``.
 `flutter pub add geolocator`
 
 `flutter pub add geocoding`
+
+## Foto - câmera ou galeria
+
+`flutter pub add image_picker`
