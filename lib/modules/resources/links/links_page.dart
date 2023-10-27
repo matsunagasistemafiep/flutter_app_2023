@@ -15,7 +15,7 @@ class LinksPage extends StatefulWidget {
 
 class _LinksPageState extends State<LinksPage> {
 
-  List<bool> isExpandedList = [false, false, false];
+  List<bool> isExpandedList = [true, true, false];
 
   Future<void> _abrirSite(String url) async {
     Uri myURL = Uri.parse("https://$url");
@@ -55,7 +55,9 @@ class _LinksPageState extends State<LinksPage> {
         child: Container(child: 
          ExpansionPanelList(
           expansionCallback: (int index, bool isExpanded) {
-            isExpandedList[index] = isExpanded;
+            setState(() {
+              isExpandedList[index] = isExpanded;
+            });
           },
           children: [
             ExpansionPanel(
