@@ -15,7 +15,7 @@ class LinksPage extends StatefulWidget {
 
 class _LinksPageState extends State<LinksPage> {
 
-  List<bool> isExpandedList = [true, true, false];
+  List<bool> isExpandedList = [true, false, false, false];
 
   Future<void> _abrirSite(String url) async {
     Uri myURL = Uri.parse("https://$url");
@@ -39,7 +39,28 @@ class _LinksPageState extends State<LinksPage> {
   }
 
   Future<void> _enviarSMS(String telefone) async {
-    Uri myURL = Uri.parse("sms:$telefone");
+    final Uri myURL = Uri(
+      scheme: 'sms',
+      path: telefone,
+      queryParameters: <String, String>{
+        'body': "Mensagem de teste por SMS."
+      },
+    );
+    if (!await canLaunchUrl(myURL)) {
+      launchUrl(myURL);
+    }
+  }
+
+  /// whatsapp://send?phone=5586994324465&text=Olá,tudo bem ?"
+  Future<void> _enviarWhatsapp(String whatsapp) async {
+    final Uri myURL = Uri(
+      scheme: 'whatsapp://',
+      path: 'send',
+      queryParameters: {
+        'phone': whatsapp,
+        'text': 'Olá, tudo bem?'
+      }
+    );
     if (!await canLaunchUrl(myURL)) {
       launchUrl(myURL);
     }
@@ -71,7 +92,7 @@ class _LinksPageState extends State<LinksPage> {
                 child: Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      _abrirSite('www.google.com');
+                      _abrirSite('www.youtube.com');
                     },
                     child: const Text('Abrir página'),
                   ),
@@ -90,13 +111,54 @@ class _LinksPageState extends State<LinksPage> {
                 child: Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      _fazerLigacao('44999887766');
+                      _fazerLigacao('+5544999244223');
                     },
                     child: const Text('Abrir página'),
                   ),
                 ),
               ),
               isExpanded: isExpandedList[1]
+            ),
+
+            ExpansionPanel(
+              headerBuilder: (BuildContext context, bool isExpanded) {
+                return const ListTile(
+                  leading: Icon(Icons.email),
+                  title: Text('E-mail'),
+                );
+              },
+              body: Material(
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _enviarEmail('ftakematsu@gmail.com');
+                    },
+                    child: const Text('Enviar e-mail'),
+                  ),
+                ),
+              ),
+              isExpanded: isExpandedList[2]
+            ),
+
+            ExpansionPanel(
+              headerBuilder: (BuildContext context, bool isExpanded) {
+                return const ListTile(
+                  leading: Icon(Icons.sms),
+                  title: Text('SMS'),
+                );
+              },
+              body: Material(
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      //_enviarSMS('+5544999244223');
+                      _enviarWhatsapp('+554499244223'); 
+                    },
+                    child: const Text('Enviar SMS'),
+                  ),
+                ),
+              ),
+              isExpanded: isExpandedList[3]
             ),
           ],
         )

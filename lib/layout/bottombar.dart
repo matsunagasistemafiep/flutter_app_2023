@@ -32,7 +32,7 @@ class BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Bottom Bar"),
+        title: const Text("My Flutter App"),
         centerTitle: true,
       ),
       drawer: Drawer(

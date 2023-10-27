@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:my_flutter_app/modules/resources/geolocation/services/geolocation_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class GeolocationPage extends StatefulWidget {
 
@@ -18,7 +19,9 @@ class _GeolocationPageState extends State<GeolocationPage> {
 
   GeolocationService service = GeolocationService();
   var myLocationInfo;
-  late Placemark place;
+  late Placemark place = Placemark();
+  double latitude = 0;
+  double longitude = 0;
 
   @override
   void initState() {
@@ -29,10 +32,16 @@ class _GeolocationPageState extends State<GeolocationPage> {
   atualizarLocalizacao() {
     service.getPosition().then((position) {
       print(position);
+      setState(() {
+        latitude = position.latitude;
+        longitude = position.longitude;
+      });
       service.getLocationInfo(position).then((value) {
         print(value);
-        place = value![0];
-        print('${place.street}, ${place.subLocality}, ${place.administrativeArea}, ${place.subAdministrativeArea}, ${place.postalCode}');
+        setState(() {
+          place = value![0];
+          print('${place.street}, ${place.subLocality}, ${place.administrativeArea}, ${place.subAdministrativeArea}, ${place.postalCode}');
+        });
       });
     });
   }
@@ -43,7 +52,23 @@ class _GeolocationPageState extends State<GeolocationPage> {
       appBar: AppBar(
         title: const Text("Geolocalização"),
       ),
-      body: Container(),
+      body: Center(
+        child: Column(
+          children: [
+            Text('${place.street}, ${place.subLocality}, ${place.administrativeArea}, ${place.subAdministrativeArea}, ${place.postalCode}'),
+            Text("$latitude, $longitude"),
+            FilledButton(
+              onPressed: () async {
+                Uri myURL = Uri.parse("https://www.google.com/maps/search/?api=1&query=$latitude,$longitude");
+                if (!await canLaunchUrl(myURL)) {
+                  launchUrl(myURL);
+                }
+              }, 
+              child: const Text("Abrir mapa")
+            )
+          ],
+        )
+      ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.gps_fixed),
         onPressed: () {

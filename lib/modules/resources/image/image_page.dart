@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 
 class ImagesPage extends StatefulWidget {
@@ -14,19 +15,34 @@ class ImagesPage extends StatefulWidget {
   }
 
 }
+extension FileEx on File {
+  String get name => path.split(Platform.pathSeparator).last;
+}
 
 class _ImagesPageState extends State<ImagesPage> {
 
   File? imageFile;
+
+  
 
   Future<void> pickImage(ImageSource source) async {
     try {
       final imagepicker = await ImagePicker().pickImage(source: source);
       if (imagepicker == null) return;
       final imageTemporary = File(imagepicker.path);
+      
+      // getting a directory path for saving
+      final Directory extDir = await getApplicationDocumentsDirectory();
+      String dirPath = "${extDir.path}/images/";
+      print(dirPath);
+
+      final File newImage = await imageTemporary.copy(dirPath + imageTemporary.name);
+      print(newImage);
+
       setState(() {
-        imageFile = imageTemporary;
+        imageFile = newImage;
         print(imageFile);
+        
       });
     } catch (e) {
       return;
@@ -86,7 +102,8 @@ class _ImagesPageState extends State<ImagesPage> {
                   child: const Text('Adicionar imagem'),
                 ),
               ),
-            )
+            ),
+            Center(child: Image.file(imageFile!))
           ],
         ),
       )

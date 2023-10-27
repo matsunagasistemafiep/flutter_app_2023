@@ -16,11 +16,14 @@ dependencies:
   lottie: ^2.6.0
   path: ^1.8.3
   sqflite: ^2.3.0
-  url_launcher: ^6.1.14
+  url_launcher: ^6.2.1
   permission_handler: ^11.0.1
   geolocator: ^10.1.0
   geocoding: ^2.1.1
   image_picker: ^1.0.4
+  shared_preferences: ^2.2.2
+  path_provider: ^2.1.1
+  
 
 dev_dependencies:
   flutter_test:
