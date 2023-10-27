@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class ImagesPage extends StatefulWidget {
@@ -22,7 +23,22 @@ extension FileEx on File {
 class _ImagesPageState extends State<ImagesPage> {
 
   File? imageFile;
+  late SharedPreferences sharedPreferences;
+  List<String>? fileListPath = [];
 
+  @override
+  initState() {
+    super.initState();
+  }
+
+  void saveImage(String path) async {
+    // Obtain shared preferences.
+    sharedPreferences = await SharedPreferences.getInstance();
+    fileListPath = sharedPreferences.getStringList('imageList') ?? [];
+    fileListPath!.add(path);
+    sharedPreferences.setStringList('imageList', fileListPath!);
+    print(fileListPath);
+  }
   
 
   Future<void> pickImage(ImageSource source) async {
@@ -33,16 +49,13 @@ class _ImagesPageState extends State<ImagesPage> {
       
       // getting a directory path for saving
       final Directory extDir = await getApplicationDocumentsDirectory();
-      String dirPath = "${extDir.path}/images/";
-      print(dirPath);
-
-      final File newImage = await imageTemporary.copy(dirPath + imageTemporary.name);
-      print(newImage);
-
+      String dirPath = "${extDir.path}/${imageTemporary.name}";
+      final File newImage = await imageTemporary.copy(dirPath);
+      saveImage(dirPath);
       setState(() {
         imageFile = newImage;
+        print("Image file ");
         print(imageFile);
-        
       });
     } catch (e) {
       return;
@@ -78,13 +91,17 @@ class _ImagesPageState extends State<ImagesPage> {
                               OutlinedButton(
                                 child: const Row(children: [Icon(Icons.camera_alt), Text("Câmera")],),
                                 onPressed: () async {
-                                  await pickImage(ImageSource.camera);
+                                  await pickImage(ImageSource.camera).then((value) {
+                                    Navigator.of(context).pop();
+                                  });
                                 },
                               ),
                               OutlinedButton(
                                 child: const Row(children: [Icon(Icons.photo), Text("Galeria")],),
                                 onPressed: () async {
-                                  await pickImage(ImageSource.gallery);
+                                  await pickImage(ImageSource.gallery).then((value) {
+                                    Navigator.of(context).pop();
+                                  });
                                 },
                               ),
                               OutlinedButton(
@@ -103,7 +120,7 @@ class _ImagesPageState extends State<ImagesPage> {
                 ),
               ),
             ),
-            Center(child: Image.file(imageFile!))
+            (imageFile!=null) ? Center(child: Image.file(imageFile!)) : Container()
           ],
         ),
       )
