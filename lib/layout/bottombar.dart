@@ -2,6 +2,7 @@ import 'package:my_flutter_app/modules/resources/geolocation/geolocation_page.da
 import 'package:my_flutter_app/modules/resources/image/image_page.dart';
 import 'package:my_flutter_app/modules/resources/links/links_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../modules/home/screens/home.dart';
 
 class BottomBar extends StatefulWidget {
@@ -14,6 +15,7 @@ class BottomBar extends StatefulWidget {
 class BottomBarState extends State<BottomBar> {
   
   int _selectedIndex = 0;
+  String meuNome = "";
 
   static const List<Widget> _widgetOptions = <Widget>[
     Home(),
@@ -28,11 +30,25 @@ class BottomBarState extends State<BottomBar> {
     });
   }
 
+  void atualizarNome() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? myName = prefs.getString('userName');
+    setState(() {
+      meuNome = myName!;
+    });
+  }
+
+  @override
+  void initState() {
+    atualizarNome();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Bottom Bar"),
+        title: Text("Olá $meuNome"),
         centerTitle: true,
       ),
       drawer: Drawer(

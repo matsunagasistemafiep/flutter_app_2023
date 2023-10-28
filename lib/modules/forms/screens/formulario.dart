@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Formulario extends StatefulWidget {
   const Formulario({super.key});
@@ -16,6 +17,22 @@ class FormularioState extends State<Formulario> {
   List<String> _listaSelecionados = [];
   double _idade = 25;
 
+  TextEditingController nameController = TextEditingController();
+
+  void atualizarNome() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? myName = prefs.getString('userName');
+    setState(() {
+      nameController = TextEditingController(text: myName);
+    });
+  }
+
+  @override
+  void initState() {
+    atualizarNome();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,10 +42,11 @@ class FormularioState extends State<Formulario> {
           child: Column(
             children: [
               TextField(
+                controller: nameController,
                 keyboardType: TextInputType.name,
                 decoration: const InputDecoration(
                   hintText: "Seu nome",
-                  prefixIcon: const Icon(Icons.person)
+                  prefixIcon: Icon(Icons.person)
                 ),
               ),
               const SizedBox(height: 15),
@@ -158,6 +176,15 @@ class FormularioState extends State<Formulario> {
                   setState(() {
                     _idade = value;
                   });
+                },
+              ),
+              const Divider(),
+              FilledButton(
+                child: const Text("Salvar"),
+                onPressed: () async {
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                  // Definindo uma chave-valor Global
+                  await prefs.setString('userName', nameController.text);
                 },
               )
             ]

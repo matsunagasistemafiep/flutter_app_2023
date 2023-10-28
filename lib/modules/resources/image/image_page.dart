@@ -5,7 +5,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class ImagesPage extends StatefulWidget {
   const ImagesPage({super.key});
   @override
@@ -24,6 +23,7 @@ class _ImagesPageState extends State<ImagesPage> {
   File? imageFile;
   late SharedPreferences sharedPreferences;
   List<String>? fileListPath = [];
+  bool imagemDefinida = false;
 
   /// Realiza o salvamento do arquivo no SharedPreferences
   /// Variável: [imageList]
@@ -52,6 +52,7 @@ class _ImagesPageState extends State<ImagesPage> {
         imageFile = newImage;
         print("Image file ");
         print(imageFile);
+        imagemDefinida = true;
       });
     } catch (e) {
       return;
@@ -111,7 +112,8 @@ class _ImagesPageState extends State<ImagesPage> {
                   child: const Text('Adicionar imagem'),
                 ),
               ),
-            )
+            ),
+            if (imagemDefinida) Image.file(imageFile!)
           ],
         ),
       )
