@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:my_flutter_app/modules/resources/geolocation/services/geolocation_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class GeolocationPage extends StatefulWidget {
 
@@ -17,8 +18,10 @@ class GeolocationPage extends StatefulWidget {
 class _GeolocationPageState extends State<GeolocationPage> {
 
   GeolocationService service = GeolocationService();
-  var myLocationInfo;
   late Placemark place;
+  double latitude = 0.0;
+  double longitude = 0.0;
+  String enderecoAtual = "";
 
   @override
   void initState() {
@@ -27,12 +30,22 @@ class _GeolocationPageState extends State<GeolocationPage> {
   }
 
   atualizarLocalizacao() {
+    /// getPosition(): captura a latitude e longitude de acordo com o GPS
+    /// e armazena na variável {position}
     service.getPosition().then((position) {
       print(position);
+      setState(() {
+        latitude = position.latitude;
+        longitude = position.longitude;
+      });
+      /// getLocationInfo(postion): obtém os dados da localização (endereço completo)
       service.getLocationInfo(position).then((value) {
         print(value);
         place = value![0];
-        print('${place.street}, ${place.subLocality}, ${place.administrativeArea}, ${place.subAdministrativeArea}, ${place.postalCode}');
+        setState(() {
+          enderecoAtual = '${place.street}, ${place.subLocality}, ${place.administrativeArea}, ${place.postalCode}';
+          print(enderecoAtual);
+        });
       });
     });
   }
@@ -43,7 +56,30 @@ class _GeolocationPageState extends State<GeolocationPage> {
       appBar: AppBar(
         title: const Text("Geolocalização"),
       ),
-      body: Container(),
+      body: Column(
+        children: [
+          Center(
+            child: TextButton(
+              onPressed: () async {
+                Uri myURL = Uri(
+                  scheme: 'http',
+                  path: "www.google.com.br/maps",
+                  queryParameters: {
+                    'q': "$latitude, $longitude"
+                  } 
+                );
+                if (!await canLaunchUrl(myURL)) {
+                  launchUrl(myURL);
+                }
+              }, 
+              child: Text("$latitude, $longitude")
+            ),
+          ),
+          Center(
+            child: Text(enderecoAtual)
+          )
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.gps_fixed),
         onPressed: () {

@@ -2,30 +2,55 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class ImagesPage extends StatefulWidget {
-
   const ImagesPage({super.key});
-
   @override
   State<ImagesPage> createState() {
     return _ImagesPageState();
   }
+}
 
+/// Cria uma extensão da classe File, para permitir pegar apenas o nome do arquivo.
+extension FileEx on File {
+  String get name => path.split(Platform.pathSeparator).last;
 }
 
 class _ImagesPageState extends State<ImagesPage> {
 
   File? imageFile;
+  late SharedPreferences sharedPreferences;
+  List<String>? fileListPath = [];
+
+  /// Realiza o salvamento do arquivo no SharedPreferences
+  /// Variável: [imageList]
+  void saveImage(String path) async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    fileListPath = sharedPreferences.getStringList('imageList') ?? [];
+    fileListPath!.add(path);
+    sharedPreferences.setStringList('imageList', fileListPath!);
+    print(fileListPath);
+  }
 
   Future<void> pickImage(ImageSource source) async {
     try {
       final imagepicker = await ImagePicker().pickImage(source: source);
       if (imagepicker == null) return;
       final imageTemporary = File(imagepicker.path);
+
+      // Obtém o diretório padrão do app, para armazenamento de arquivos internos
+      final Directory extDir = await getApplicationDocumentsDirectory();
+      // Define uma string com o diretório e a imagem
+      String dirPath = "${extDir.path}/${imageTemporary.name}";
+      // Copia a imagem temporária para o novo diretório definido
+      final File newImage = await imageTemporary.copy(dirPath);
+      saveImage(dirPath);
       setState(() {
-        imageFile = imageTemporary;
+        imageFile = newImage;
+        print("Image file ");
         print(imageFile);
       });
     } catch (e) {

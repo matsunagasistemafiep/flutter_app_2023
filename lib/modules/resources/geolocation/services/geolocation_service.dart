@@ -9,36 +9,31 @@ class GeolocationService {
     bool serviceEnabled;
     LocationPermission permission;
 
-    // Test if location services are enabled.
+    // Teste se o serviço de geolocalização está ativado
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      // Location services are not enabled don't continue
-      // accessing the position and request users of the 
-      // App to enable the location services.
-      return Future.error('Location services are disabled.');
+    if (!serviceEnabled) { // Se não ativado
+      // Mostrar uma mensagem de erro
+      return Future.error('Serviço de GPS está desativado.');
     }
 
+    // Checagem de permissão
     permission = await Geolocator.checkPermission();
+
+    // Se a permissão for negada
     if (permission == LocationPermission.denied) {
+      // Requisita a permissão novamente
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale 
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
-        return Future.error('Location permissions are denied');
+        return Future.error('A permissão de acesso à localização foi negada');
       }
     }
     
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately. 
-      return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.');
+    if (permission == LocationPermission.deniedForever) { 
+      return Future.error('Permissões de localização permanentemente negadas.');
     } 
 
-    // When we reach here, permissions are granted and we can
-    // continue accessing the position of the device.
+    // Se chegou até aqui, quer dizer que as permissões foram concedidas
+    // Então capturar a posição de acordo com o GPS (Latitude e Longitude)
     return await Geolocator.getCurrentPosition();
   }
 
