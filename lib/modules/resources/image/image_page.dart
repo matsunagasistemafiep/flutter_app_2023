@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class ImagesPage extends StatefulWidget {
   const ImagesPage({super.key});
@@ -24,6 +25,20 @@ class _ImagesPageState extends State<ImagesPage> {
   late SharedPreferences sharedPreferences;
   List<String>? fileListPath = [];
   bool imagemDefinida = false;
+
+  @override
+  void initState() {
+    atualizaImagens();
+    super.initState();
+  }
+
+  void atualizaImagens() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      fileListPath = sharedPreferences.getStringList('imageList') ?? [];
+      print(fileListPath);
+    });
+  }
 
   /// Realiza o salvamento do arquivo no SharedPreferences
   /// Variável: [imageList]
@@ -65,7 +80,7 @@ class _ImagesPageState extends State<ImagesPage> {
       appBar: AppBar(
         title: const Text("Imagens")
       ),
-      body: Container(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(2.0),
         child: Column(
           children: [
@@ -113,7 +128,32 @@ class _ImagesPageState extends State<ImagesPage> {
                 ),
               ),
             ),
-            if (imagemDefinida) Image.file(imageFile!)
+            const SizedBox(height: 10.0,),
+            // Apenas mostra se tiver imagens na lista de paths
+            if (fileListPath!.isNotEmpty) CarouselSlider.builder(
+              itemCount: fileListPath!.length,
+              itemBuilder: (BuildContext context, int index, int pageViewIndex) {
+                File imageFile = File(fileListPath![index]);
+                return Image.file(imageFile);
+                //return Text(imageFile.name);
+              }, 
+              options: CarouselOptions(
+                height: 400,
+                aspectRatio: 16/9,
+                viewportFraction: 0.8,
+                initialPage: 0,
+                enableInfiniteScroll: true,
+                reverse: false,
+                autoPlay: true,
+                autoPlayInterval: const Duration(seconds: 3),
+                autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enlargeCenterPage: true,
+                enlargeFactor: 0.3,
+                scrollDirection: Axis.horizontal,
+              )
+,
+            )
           ],
         ),
       )
