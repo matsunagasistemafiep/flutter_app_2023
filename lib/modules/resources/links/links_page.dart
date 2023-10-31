@@ -25,7 +25,7 @@ class _LinksPageState extends State<LinksPage> {
   }
 
   Future<void> _fazerLigacao(String telefone) async {
-    Uri myURL = Uri.parse("tel:+55$telefone");
+    Uri myURL = Uri.parse("tel:$telefone");
     if (!await canLaunchUrl(myURL)) {
       launchUrl(myURL);
     }
@@ -151,8 +151,8 @@ class _LinksPageState extends State<LinksPage> {
                 child: Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      //_enviarSMS('+5544999244223');
-                      _enviarWhatsapp('+554499244223'); 
+                      _enviarSMS('+5544999244223');
+                      //_enviarWhatsapp('+554499244223'); 
                     },
                     child: const Text('Enviar SMS'),
                   ),
