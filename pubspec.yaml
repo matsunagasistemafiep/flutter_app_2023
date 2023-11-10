@@ -24,6 +24,10 @@ dependencies:
   shared_preferences: ^2.2.2
   path_provider: ^2.1.1
   carousel_slider: ^4.2.1
+  audioplayers: ^5.2.0
+  youtube_player_flutter: ^8.1.2
+  flutter_sound: ^9.2.13
+  assets_audio_player: ^3.1.1
 
 dev_dependencies:
   flutter_test:
@@ -34,3 +38,4 @@ flutter:
   uses-material-design: true
   assets:
    - 'assets/images/'
+   - 'assets/audio/'

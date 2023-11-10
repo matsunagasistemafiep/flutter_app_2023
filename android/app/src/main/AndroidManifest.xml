@@ -5,7 +5,11 @@
 
     <!-- Código para habilitar a permissão de acesso à câmera e ao armazenamento -->
     <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     <application
         android:label="MyApp"
         android:name="${applicationName}"
