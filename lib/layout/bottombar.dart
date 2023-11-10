@@ -2,6 +2,7 @@ import 'package:my_flutter_app/modules/resources/geolocation/geolocation_page.da
 import 'package:my_flutter_app/modules/resources/image/image_page.dart';
 import 'package:my_flutter_app/modules/resources/links/links_page.dart';
 import 'package:flutter/material.dart';
+import 'package:my_flutter_app/modules/resources/media/media_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../modules/home/screens/home.dart';
 
@@ -21,7 +22,8 @@ class BottomBarState extends State<BottomBar> {
     Home(),
     LinksPage(),
     ImagesPage(),
-    GeolocationPage()
+    GeolocationPage(),
+    MediaPage()
   ];
 
   void _onItemTapped(int index) {
@@ -112,6 +114,18 @@ class BottomBarState extends State<BottomBar> {
               ),
               onTap: () {
                 _onItemTapped(3);
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Row(
+                children: [
+                  Icon(Icons.music_video),
+                  Text(" Multimídia")
+                ],
+              ),
+              onTap: () {
+                _onItemTapped(4);
                 Navigator.pop(context);
               },
             ),
