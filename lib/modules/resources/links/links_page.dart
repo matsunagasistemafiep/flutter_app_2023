@@ -29,9 +29,9 @@ class _LinksPageState extends State<LinksPage> {
 
   Future<void> _fazerLigacao(String telefone) async {
     Uri myURL = Uri.parse("tel:+55$telefone");
-    if (!await canLaunchUrl(myURL)) {
+    //if (!await canLaunchUrl(myURL)) {
       launchUrl(myURL);
-    }
+    //}
   }
 
   Future<void> _enviarEmail(String email) async {
@@ -55,19 +55,19 @@ class _LinksPageState extends State<LinksPage> {
         'body': 'Olá, tudo bem?'
       }
     );
-    if (!await canLaunchUrl(myURL)) {
+    //if (!await canLaunchUrl(myURL)) {
       launchUrl(myURL);
-    }
+    //}
   }
 
   Future<void> _enviarWhatsapp(String whatsapp) async {
     var whatsappUrl = "whatsapp://send?phone=$whatsapp&text=Olá,tudo bem?";
 
-    if (await canLaunchUrl(Uri.parse(whatsappUrl))) {
+    //if (await canLaunchUrl(Uri.parse(whatsappUrl))) {
       await launchUrl(Uri.parse(whatsappUrl));
-    } else {
+    /*} else {
       throw 'Não foi possível abrir $whatsappUrl';
-    }
+    }*/
   }
 
   @override
