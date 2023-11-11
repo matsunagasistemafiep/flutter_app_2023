@@ -22,6 +22,7 @@ class _GeolocationPageState extends State<GeolocationPage> {
   double latitude = 0.0;
   double longitude = 0.0;
   String enderecoAtual = "";
+  bool localizacaoDefinida = false;
 
   @override
   void initState() {
@@ -30,6 +31,9 @@ class _GeolocationPageState extends State<GeolocationPage> {
   }
 
   atualizarLocalizacao() {
+    setState(() {
+      localizacaoDefinida = false;
+    });
     /// getPosition(): captura a latitude e longitude de acordo com o GPS
     /// e armazena na variável {position}
     service.getPosition().then((position) {
@@ -45,6 +49,7 @@ class _GeolocationPageState extends State<GeolocationPage> {
         setState(() {
           enderecoAtual = '${place.street}, ${place.subLocality}, ${place.administrativeArea}, ${place.postalCode}';
           print(enderecoAtual);
+          localizacaoDefinida = true;
         });
       });
     });
@@ -56,7 +61,7 @@ class _GeolocationPageState extends State<GeolocationPage> {
       appBar: AppBar(
         title: const Text("Geolocalização"),
       ),
-      body: Column(
+      body: (localizacaoDefinida) ? Column(
         children: [
           Center(
             child: TextButton(
@@ -79,6 +84,9 @@ class _GeolocationPageState extends State<GeolocationPage> {
             child: Text(enderecoAtual)
           )
         ],
+      ) : 
+      const Center(
+        child: CircularProgressIndicator(),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.gps_fixed),

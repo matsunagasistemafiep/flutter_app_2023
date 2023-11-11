@@ -10,8 +10,12 @@ class MyVideoPlayer extends StatefulWidget {
 
 class _MyVideoPlayerState extends State<MyVideoPlayer> {
 
+  TextEditingController urlController = TextEditingController();
+
+  String videoID = 'AKeUssuu3Is';
+
   final YoutubePlayerController _controller = YoutubePlayerController(
-    initialVideoId: 'iLnmTe5Q2Qw',
+    initialVideoId: 'AKeUssuu3Is',
     flags: const YoutubePlayerFlags(
         autoPlay: true,
         mute: false,
