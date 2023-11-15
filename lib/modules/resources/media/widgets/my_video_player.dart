@@ -12,10 +12,10 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
 
   TextEditingController urlController = TextEditingController();
 
-  String videoID = 'AKeUssuu3Is';
+  String videoID = 'WV-ZFRZz-Lc';
 
   final YoutubePlayerController _controller = YoutubePlayerController(
-    initialVideoId: 'AKeUssuu3Is',
+    initialVideoId: 'WV-ZFRZz-Lc',
     flags: const YoutubePlayerFlags(
         autoPlay: true,
         mute: false,

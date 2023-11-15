@@ -67,15 +67,15 @@ class _GeolocationPageState extends State<GeolocationPage> {
             child: TextButton(
               onPressed: () async {
                 Uri myURL = Uri(
-                  scheme: 'http',
+                  scheme: 'https',
                   path: "www.google.com.br/maps",
                   queryParameters: {
                     'q': "$latitude, $longitude"
                   } 
                 );
-                if (!await canLaunchUrl(myURL)) {
+                //if (!await canLaunchUrl(myURL)) {
                   launchUrl(myURL);
-                }
+                //}
               }, 
               child: Text("$latitude, $longitude")
             ),
