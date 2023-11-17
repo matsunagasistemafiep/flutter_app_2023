@@ -37,6 +37,9 @@ class _FormTask extends State<FormTask> {
   TextEditingController horaControl = TextEditingController();
   TextEditingController detalhesControl = TextEditingController();
 
+  // Data atual selecionada
+  DateTime dataSelecionada = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -59,13 +62,15 @@ class _FormTask extends State<FormTask> {
           onTap: () async {
             DateTime? pickedDate = await showDatePicker(
               context: context,
-              initialDate: DateTime.now(),
+              initialDate: dataSelecionada,
               firstDate: DateTime(2022),
-              lastDate: DateTime(2030)
+              lastDate: DateTime(2030),
+              currentDate: dataSelecionada
             );
             if (pickedDate!=null) {
-              String dataFormatada = DateFormat('dd/MM/yyyy').format(pickedDate);
               setState(() {
+                String dataFormatada = DateFormat('dd/MM/yyyy').format(pickedDate);
+                dataSelecionada = pickedDate;
                 dataControl.text = dataFormatada;
               });
             }
@@ -85,7 +90,9 @@ class _FormTask extends State<FormTask> {
             );
             if (pickedTime!=null) {
               setState(() {
-                horaControl.text = "${pickedTime.hour}:${pickedTime.minute}";
+                DateTime dataHoraSelecionada = dataSelecionada.copyWith(hour: pickedTime.hour, minute: pickedTime.minute);
+                String horaFormatada = DateFormat('HH:mm').format(dataHoraSelecionada);
+                horaControl.text = horaFormatada;
               });
             }
           },

@@ -38,3 +38,8 @@ flutter:
   assets:
    - 'assets/images/'
    - 'assets/audios/'
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/myicon.png"

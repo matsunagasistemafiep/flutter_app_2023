@@ -90,36 +90,32 @@ class _ImagesPageState extends State<ImagesPage> {
                   onPressed: () {
                     showDialog(
                       context: context,
-                      builder: (_) => Container(
-                        height: MediaQuery.of(context).size.height*0.5,
-                        padding: const EdgeInsets.all(2.0),
-                        child: Card(
-                          elevation: 5,
-                          margin: const EdgeInsets.all(2.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              OutlinedButton(
-                                child: const Row(children: [Icon(Icons.camera_alt), Text("Câmera")],),
-                                onPressed: () async {
-                                  await pickImage(ImageSource.camera);
-                                },
-                              ),
-                              OutlinedButton(
-                                child: const Row(children: [Icon(Icons.photo), Text("Galeria")],),
-                                onPressed: () async {
-                                  await pickImage(ImageSource.gallery);
-                                },
-                              ),
-                              OutlinedButton(
-                                child: const Row(children: [Icon(Icons.close), Text("Fechar")],),
-                                onPressed: () async {
-                                  Navigator.of(context).pop();
-                                },
-                              )
-                            ],
-                          )
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Adicionar uma imagem'),
+                        content: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            OutlinedButton(
+                              child: const Row(children: [Icon(Icons.camera_alt), Text("Câmera")],),
+                              onPressed: () async {
+                                await pickImage(ImageSource.camera);
+                              },
+                            ),
+                            OutlinedButton(
+                              child: const Row(children: [Icon(Icons.photo), Text("Galeria")],),
+                              onPressed: () async {
+                                await pickImage(ImageSource.gallery);
+                              },
+                            ),
+                            OutlinedButton(
+                              child: const Row(children: [Icon(Icons.close), Text("Fechar")],),
+                              onPressed: () async {
+                                Navigator.of(context).pop();
+                              },
+                            )
+                          ],
+                          
                         )
                       )
                     );
