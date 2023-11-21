@@ -59,9 +59,20 @@ class _MainTask extends State<MainTask> {
               padding: const EdgeInsets.all(30),
               child: Column(
                 children: [
-                  Visibility(
+                  /*Visibility(
                     visible: mostrarForms,
                     child: FormTask(update: refresh)
+                  ),*/
+                  Visibility(
+                    visible: mostrarForms,
+                    maintainAnimation: true,
+                    maintainState: true,
+                    child: AnimatedOpacity(
+                        duration: const Duration(milliseconds: 2000),
+                        curve: Curves.fastOutSlowIn,
+                        opacity: mostrarForms ? 1 : 0,
+                        child: FormTask(update: refresh)
+                    )
                   ),
                   const Divider(), // Linha horizontal
                   ListTask(
