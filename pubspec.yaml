@@ -1,7 +1,7 @@
 name: my_flutter_app
 description: A new Flutter project.
 publish_to: 'none'
-version: 0.1.0
+version: 1.0.0
 
 environment:
   sdk: '>=3.0.6 <4.0.0'
@@ -42,4 +42,4 @@ flutter:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icons/myicon.png"
+  image_path: "assets/icons/flutter-dash.png"
