@@ -1,27 +1,27 @@
 import 'dart:math';
 
 class CalcModel {
-  int n1;
-  int n2;
+  num n1;
+  num n2;
 
   CalcModel({
     required this.n1,
     required this.n2
   });
 
-  int somar() {
+  num somar() {
     return n1+n2;
   }
   
-  int subtrair() {
+  num subtrair() {
     return n1-n2;
   }
   
-  int multiplicar() {
+  num multiplicar() {
     return n1*n2;
   }
   
-  double dividir() {
+  num dividir() {
     return n1/n2;
   }
   

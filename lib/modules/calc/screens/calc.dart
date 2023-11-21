@@ -13,9 +13,9 @@ class Calc extends StatefulWidget {
 
 class CalcState extends State<Calc> {
 
-  int myVar = 0;
-  TextEditingController control1 = TextEditingController();
-  TextEditingController control2 = TextEditingController();
+  num myVar = 0;
+  TextEditingController control1 = TextEditingController(text: "0");
+  TextEditingController control2 = TextEditingController(text: "0");
 
   CalcModel calcModel = CalcModel(n1: 0, n2: 0);
   
@@ -61,10 +61,11 @@ class CalcState extends State<Calc> {
           )
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             DropdownButton<String>(
               value: dropdownValue,
-              icon: const Icon(Icons.arrow_downward),
+              icon: const Icon(Icons.calculate),
               elevation: 16,
               style: const TextStyle(color: Colors.deepPurple),
               underline: Container(
@@ -85,15 +86,26 @@ class CalcState extends State<Calc> {
               }).toList(),
             ),
             ElevatedButton(
-              child: const Text("Somar"),
+              child: const Text("Calcular"),
               onPressed: () {
-                int n1 = int.parse(control1.text);
-                int n2 = int.parse(control2.text);
+                calcModel.n1 = num.parse(control1.text);
+                calcModel.n2 = num.parse(control2.text);
+
                 setState(() {
-                  myVar = n1+n2;
+                  if (dropdownValue=='Somar') {
+                    myVar = calcModel.somar();
+                  } else if (dropdownValue=='Subtrair') {
+                    myVar = calcModel.subtrair();
+                  } else if (dropdownValue=='Multiplicar') {
+                    myVar = calcModel.multiplicar();
+                  } else if (dropdownValue=='Dividir') {
+                    myVar = calcModel.dividir();
+                  } else if (dropdownValue=='Elevar') {
+                    myVar = calcModel.potencia();
+                  }
                 });
               }
-            ),     
+            ),   
           ],
         ),
         
