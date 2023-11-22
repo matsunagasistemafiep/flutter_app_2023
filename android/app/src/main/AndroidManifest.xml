@@ -10,6 +10,10 @@
     <!-- Código para habilitar a permissão de acesso ao microfone -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     
+    <!-- Código para habilitar a permissão de acesso à Internet (para URL de imagens) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:label="MyApp"
         android:name="${applicationName}"

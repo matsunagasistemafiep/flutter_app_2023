@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:my_flutter_app/modules/users/services/usuarios_service.dart';
+import 'package:intl/intl.dart';
+import 'package:my_flutter_app/modules/users/widgets/usuarios_list.dart';
 
 import '../models/usuario_model.dart';
+import '../services/usuarios_service.dart';
 
 class Usuarios extends StatefulWidget {
 
@@ -14,9 +18,12 @@ class Usuarios extends StatefulWidget {
 }
 
 class UsuariosState extends State<Usuarios> {
-  /// Lista de objetos da classe Usuario
-  List<Usuario> _lista = [];
-  UsuariosService service = UsuariosService();
+  TextEditingController nomeControl = TextEditingController();
+  TextEditingController emailControl = TextEditingController();
+  TextEditingController telefoneControl = TextEditingController();
+  TextEditingController dataControl = TextEditingController();
+  DateTime dataSelecionada = DateTime.now();
+  UsuariosService usuarioService = UsuariosService();
 
   @override
   void initState() {
@@ -32,11 +39,62 @@ class UsuariosState extends State<Usuarios> {
           ElevatedButton(
             child: const Text("Adicionar usuário"),
             onPressed: () {
-              showDialog<String>(
+              showDialog<Usuario>(
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
                   title: const Text('Novo usuário'),
-                  content: const Text('Formulário'),
+                  content: Column(
+                    children: [
+                      TextFormField(
+                        controller: nomeControl,
+                        keyboardType: TextInputType.name,
+                        decoration: const InputDecoration(
+                          labelText: "Nome",
+                          icon: Icon(Icons.person)
+                        )
+                      ),
+                      TextFormField(
+                        controller: emailControl,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: const InputDecoration(
+                          labelText: "E-mail",
+                          icon: Icon(Icons.email)
+                        )
+                      ),
+                      TextFormField(
+                        controller: telefoneControl,
+                        keyboardType: TextInputType.phone,
+                        decoration: const InputDecoration(
+                          labelText: "Telefone",
+                          icon: Icon(Icons.phone)
+                        )
+                      ),
+                      TextFormField(
+                        controller: dataControl,
+                        readOnly: true,
+                        decoration: const InputDecoration(
+                          labelText: "Data de nascimento",
+                          icon: Icon(Icons.calendar_month)
+                        ),
+                        onTap: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: dataSelecionada,
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime.now(),
+                            currentDate: dataSelecionada
+                          );
+                          if (pickedDate!=null) {
+                            setState(() {
+                              String dataFormatada = DateFormat('dd/MM/yyyy').format(pickedDate);
+                              dataSelecionada = pickedDate;
+                              dataControl.text = dataFormatada;
+                            });
+                          }
+                        }
+                      ),
+                    ],
+                  ),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.pop(context),
@@ -44,54 +102,27 @@ class UsuariosState extends State<Usuarios> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pop(context, 'Cadastrar');
+                        String urlFoto = "https://i.pravatar.cc/300?img=${Random().nextInt(71)}";
+                        Usuario usuario = Usuario(
+                          nome: nomeControl.text, urlFoto: urlFoto, dataNascimento: dataSelecionada,
+                          email: emailControl.text, telefone: telefoneControl.text
+                        );
+                        Navigator.pop(context, usuario);
                       },
                       child: const Text('Cadastrar'),
                     ),
                   ],
                 ),
               ).then((value) {
-                print(value);
+                if (value!=null) {
+                  setState(() {
+                    usuarioService.store(value);
+                  });
+                }
               });
             }
           ),
-          FutureBuilder<List<Usuario>>(
-            future: service.getAll(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              if (snapshot.connectionState==ConnectionState.done && snapshot.hasData) {
-                _lista = snapshot.data!;
-                return Expanded(
-                  child: ListView.builder(
-                    itemCount: _lista.length, // Tamanho da lista
-                    // context: contexto da aplicação (tela atual)
-                    // index: índice de cada item, iterado de 0 até n-1 (n = tamanho da lista)
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        leading: ClipOval(
-                          child: Image.network(_lista[index].urlFoto),
-                        ),
-                        title: Text(_lista[index].nome),
-                        subtitle: Text(_lista[index].email)
-                      );
-                    }
-                  )
-                );
-              }
-              // Deu algum erro
-              if (snapshot.hasError) {
-                print(snapshot.error);
-                return const Center(
-                  child: Text("Erro ao carregar dados")
-                );
-              }
-              return const Center(
-                child: Text("Listagem de usuários.")
-              );
-            }
-          )
+          UsuariosList(service: usuarioService)
         ],
       )
     );

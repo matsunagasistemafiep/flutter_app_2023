@@ -70,6 +70,10 @@ class _LinksPageState extends State<LinksPage> {
     }*/
   }
 
+  TextEditingController urlControl = TextEditingController(text: "www.google.com");
+  TextEditingController phoneControl = TextEditingController();
+  TextEditingController emailControl = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,15 +95,27 @@ class _LinksPageState extends State<LinksPage> {
                  title: Text('URL'),
                );
              },
-             body: Material(
-               child: Center(
-                 child: ElevatedButton(
-                   onPressed: () {
-                     _abrirSite('www.google.com');
-                   },
-                   child: const Text('Abrir página'),
-                 ),
-               ),
+             body: Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: urlControl,
+                    keyboardType: TextInputType.url,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder()
+                    )
+                  ),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _abrirSite(urlControl.text);
+                      },
+                      child: const Text('Abrir página'),
+                    ),
+                  ),
+                ],
+               )
              ),
              isExpanded: isExpandedList[0]
            ),
@@ -111,15 +127,27 @@ class _LinksPageState extends State<LinksPage> {
                  title: Text('Telefone'),
                );
              },
-             body: Material(
-               child: Center(
-                 child: ElevatedButton(
-                   onPressed: () {
-                     _fazerLigacao('44999887766');
-                   },
-                   child: const Text('Fazer ligação'),
-                 ),
-               ),
+             body: Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: phoneControl,
+                    keyboardType: TextInputType.phone,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder()
+                    )
+                  ),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _fazerLigacao(phoneControl.text);
+                      },
+                      child: const Text('Fazer ligação'),
+                    ),
+                  ),
+                ]
+               )
              ),
              isExpanded: isExpandedList[1]
            ),
@@ -131,15 +159,27 @@ class _LinksPageState extends State<LinksPage> {
                  title: Text('E-mail'),
                );
              },
-             body: Material(
-               child: Center(
-                 child: ElevatedButton(
-                   onPressed: () {
-                     _enviarEmail("fabio.matsunaga@sistemafiep.org.br");
-                   },
-                   child: const Text('Enviar e-mail'),
-                 ),
-               ),
+             body: Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: emailControl,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder()
+                    )
+                  ),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _enviarEmail(emailControl.text);
+                      },
+                      child: const Text('Enviar e-mail'),
+                    ),
+                  )
+               ]
+              ),
              ),
              isExpanded: isExpandedList[2]
            ),
@@ -151,17 +191,29 @@ class _LinksPageState extends State<LinksPage> {
                  title: Text('SMS'),
                );
              },
-             body: Material(
-               child: Center(
-                 child: ElevatedButton(
-                   onPressed: () {
-                     _enviarSMS("44999244223");
-                   },
-                   child: const Text('Enviar SMS'),
-                 ),
-               ),
-             ),
-             isExpanded: isExpandedList[3]
+             body: Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: phoneControl,
+                    keyboardType: TextInputType.phone,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder()
+                    )
+                  ),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _enviarSMS(phoneControl.text);
+                      },
+                      child: const Text('Enviar SMS'),
+                    ),
+                  ),
+                  ]
+                )
+            ),
+            isExpanded: isExpandedList[3]
            ),
 
            ExpansionPanel(
@@ -171,17 +223,29 @@ class _LinksPageState extends State<LinksPage> {
                  title: Text('WhatsApp'),
                );
              },
-             body: Material(
-               child: Center(
-                 child: ElevatedButton(
-                   onPressed: () {
-                     _enviarWhatsapp("+554499244223");
-                   },
-                   child: const Text('Enviar WhatsApp'),
-                 ),
-               ),
-             ),
-             isExpanded: isExpandedList[4]
+             body: Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: phoneControl,
+                    keyboardType: TextInputType.phone,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder()
+                    )
+                  ),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _enviarWhatsapp("+55${phoneControl.text}");
+                      },
+                      child: const Text('Enviar WhatsApp'),
+                      ),
+                    ),
+                ]
+              ),
+            ),
+            isExpanded: isExpandedList[4]
            ),
          ],
         )
